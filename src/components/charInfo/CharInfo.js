@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Skeleton from '../skeleton/Skeleton';
 import MarvelService from '../../services/MarvelService';
@@ -7,7 +8,7 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 
 import './charInfo.scss';
 
-export default class CharInfo extends Component {
+class CharInfo extends Component {
    state = {
       char: null,
       loading: false,
@@ -78,7 +79,7 @@ export default class CharInfo extends Component {
 const View = ({char}) => {
    const {name, thumbnail, wiki, homepage, description, comics} = char;
 
-   const imageFitStyle = (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') ? {'objectFit': 'fill'} : {'objectFit': 'cover'};
+   const imageFitStyle = (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') ? {'objectFit': 'fill'} : {'objectFit': 'cover'};
    
    let comicsItems = comics.map((item, i) => {
       return (
@@ -120,3 +121,9 @@ const View = ({char}) => {
       </>
    )
 }
+
+CharInfo.propTypes = {
+   charId: PropTypes.number
+}
+
+export default CharInfo;

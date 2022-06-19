@@ -11,22 +11,48 @@ export default class CharList extends Component {
       charList: [],
       loading: true,
       error: false,
-   }
-
-   componentDidMount() {
-      this.marverlService.getAllCharacters()
-      .then(this.onCharListLoaded)
-      .catch(this.onError);
+      offset: 210,
+      newItemLoading: false,
+      charEnded: false,
    }
 
    marverlService = new MarvelService();
+
+   componentDidMount() {
+      this.onRequire();
+   }
+
+   onRequire = (offset) => {
+      this.onCharListLoading();
+
+      this.marverlService.getAllCharacters(offset)
+      .then(this.onCharListLoaded)
+      .catch(this.onError);
+   }
 
    onError = () => {
       this.setState({loading: false, error: true})
    }
 
-   onCharListLoaded = (charList) => {
-      this.setState({charList, loading: false});
+   onCharListLoaded = (newCharList) => {
+      let ended = false;
+      if (newCharList.length < 9) {
+         ended = true;
+      }
+
+      this.setState(({offset, charList, charEnded}) => ({
+         charList: [...charList, ...newCharList],
+         loading: false,
+         offset: offset + 9,
+         newItemLoading: false,
+         charEnded: ended,
+      }));
+   }
+
+   onCharListLoading = () => {
+      this.setState({
+         newItemLoading: true,
+      })
    }
 
    renderItems(arr) {
@@ -34,7 +60,7 @@ export default class CharList extends Component {
          const {id, thumbnail, name} = item;
          let imgStyle = {'objectFit': 'cover'};
 
-         if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
+         if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') {
             imgStyle = {'objectFit': 'unset'};
          }
 
@@ -56,7 +82,7 @@ export default class CharList extends Component {
    };
 
    render() {
-      const {charList, loading, error} = this.state;
+      const {charList, loading, error, offset, newItemLoading, charEnded} = this.state;
       
       const items = this.renderItems(charList);
 
@@ -69,7 +95,10 @@ export default class CharList extends Component {
                {spinner}
                {errorMessage}
                {content}
-            <button className="button button__main button__long">
+            <button className="button button__main button__long"
+                    style={charEnded ? {'display': 'none'} : {'display': 'block'}}
+                    onClick={() => this.onRequire(offset)}
+                    disabled={newItemLoading}>
                <div className="inner">load more</div>
             </button>
          </div>

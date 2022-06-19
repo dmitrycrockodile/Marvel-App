@@ -85,7 +85,7 @@ export default class RandomChar extends Component {
 const View = ({char}) => {
    const {name, description, thumbnail, homepage, wiki} = char;
 
-   const imageFitStyle = (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') ? {'objectFit': 'fill'} : {'objectFit': 'cover'};
+   const imageFitStyle = (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg' || thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708.gif') ? {'objectFit': 'fill'} : {'objectFit': 'cover'};
 
    return (
       <div className="randomchar__block">
