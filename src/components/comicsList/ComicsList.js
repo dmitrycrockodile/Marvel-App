@@ -17,12 +17,12 @@ const ComicsList = () => {
 
    useEffect(() => {
       onRequest(offset, true);
-  }, [])
+   }, [])
 
   const onRequest = (offset, initial) => {
       initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
       getAllComics(offset)
-          .then(onComicsListLoaded)
+         .then(onComicsListLoaded);
   }
 
    const onComicsListLoaded = (newComicsList) => {
@@ -32,7 +32,7 @@ const ComicsList = () => {
       }
 
       setNewComicsLoading(false);
-      setComicsList(comicsList => [...comicsList, ...newComicsList]);
+      setComicsList([...comicsList, ...newComicsList]);
       setOffset(offset => offset + 8);
       setComicsEnded(ended);
    }

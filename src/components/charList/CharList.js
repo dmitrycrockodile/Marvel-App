@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import PropTypes from 'prop-types';
+
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
@@ -33,9 +35,9 @@ const CharList = (props) => {
       }
 
       setOffset(offset => offset + 9);
-      setCharList(charList => [...charList, ...newCharList]);
+      setCharList([...charList, ...newCharList]);
       setNewItemLoading(false);
-      setCharEnded(ended);
+      setCharEnded(charEnded => ended);
    }
 
    const itemRefs = useRef([]);
@@ -70,9 +72,7 @@ const CharList = (props) => {
                      onFoucsItem(i);
                    }
                 }
-
-                }
-            >
+            }>
                <img src={thumbnail} style={imgStyle} alt={name}/>
                <div className="char__name">{name}</div>
             </li>
@@ -106,5 +106,8 @@ const CharList = (props) => {
    )
 }
 
+CharList.propTypes = {
+   onCharSelected: PropTypes.func.isRequired
+}
 
 export default CharList;
