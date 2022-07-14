@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import useMarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -19,11 +20,11 @@ const ComicsList = () => {
       onRequest(offset, true);
    }, [])
 
-  const onRequest = (offset, initial) => {
+   const onRequest = (offset, initial) => {
       initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
       getAllComics(offset)
          .then(onComicsListLoaded);
-  }
+   }
 
    const onComicsListLoaded = (newComicsList) => {
       let ended = false;
@@ -41,11 +42,11 @@ const ComicsList = () => {
       const items = arr.map(comics => {
          return ( 
             <li className="comics__item" key={comics.id}>
-               <a href={comics.homepage}>
+               <Link to={`/comics/${comics.id}`}>
                   <img src={comics.thumbnail} alt={comics.title} className="comics__item-img"/>
                   <div className="comics__item-name">{comics.title}</div>
                   <div className="comics__item-price">{comics.price}</div>
-               </a>
+               </Link>
             </li>
          )
       })
