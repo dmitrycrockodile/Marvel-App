@@ -1,18 +1,34 @@
 {
   "files": {
-    "main.css": "/Marvel-App/static/css/main.1ae3bf89.css",
-    "main.js": "/Marvel-App/static/js/main.ec67ab45.js",
+    "main.css": "/Marvel-App/static/css/main.c6a4661f.css",
+    "main.js": "/Marvel-App/static/js/main.e070d5d0.js",
+    "static/js/346.c3336c03.chunk.js": "/Marvel-App/static/js/346.c3336c03.chunk.js",
+    "static/css/696.aa394f26.chunk.css": "/Marvel-App/static/css/696.aa394f26.chunk.css",
+    "static/js/696.73cc089b.chunk.js": "/Marvel-App/static/js/696.73cc089b.chunk.js",
+    "static/css/99.7bb24016.chunk.css": "/Marvel-App/static/css/99.7bb24016.chunk.css",
+    "static/js/99.e729c5f6.chunk.js": "/Marvel-App/static/js/99.e729c5f6.chunk.js",
+    "static/css/472.cc63f016.chunk.css": "/Marvel-App/static/css/472.cc63f016.chunk.css",
+    "static/js/472.9950fb9e.chunk.js": "/Marvel-App/static/js/472.9950fb9e.chunk.js",
+    "static/js/105.0b08cbc3.chunk.js": "/Marvel-App/static/js/105.0b08cbc3.chunk.js",
     "static/media/vision.png": "/Marvel-App/static/media/vision.067d4ae1936d64a577ce.png",
     "static/media/mjolnir.png": "/Marvel-App/static/media/mjolnir.61f31e1809f12183a524.png",
     "static/media/Avengers.png": "/Marvel-App/static/media/Avengers.4065c8f9c94e3d8b039a.png",
     "static/media/error.gif": "/Marvel-App/static/media/error.42292aa12b6bc303ce99.gif",
     "static/media/Avengers_logo.png": "/Marvel-App/static/media/Avengers_logo.9eaf219344d83362e830.png",
     "index.html": "/Marvel-App/index.html",
-    "main.1ae3bf89.css.map": "/Marvel-App/static/css/main.1ae3bf89.css.map",
-    "main.ec67ab45.js.map": "/Marvel-App/static/js/main.ec67ab45.js.map"
+    "main.c6a4661f.css.map": "/Marvel-App/static/css/main.c6a4661f.css.map",
+    "main.e070d5d0.js.map": "/Marvel-App/static/js/main.e070d5d0.js.map",
+    "346.c3336c03.chunk.js.map": "/Marvel-App/static/js/346.c3336c03.chunk.js.map",
+    "696.aa394f26.chunk.css.map": "/Marvel-App/static/css/696.aa394f26.chunk.css.map",
+    "696.73cc089b.chunk.js.map": "/Marvel-App/static/js/696.73cc089b.chunk.js.map",
+    "99.7bb24016.chunk.css.map": "/Marvel-App/static/css/99.7bb24016.chunk.css.map",
+    "99.e729c5f6.chunk.js.map": "/Marvel-App/static/js/99.e729c5f6.chunk.js.map",
+    "472.cc63f016.chunk.css.map": "/Marvel-App/static/css/472.cc63f016.chunk.css.map",
+    "472.9950fb9e.chunk.js.map": "/Marvel-App/static/js/472.9950fb9e.chunk.js.map",
+    "105.0b08cbc3.chunk.js.map": "/Marvel-App/static/js/105.0b08cbc3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ae3bf89.css",
-    "static/js/main.ec67ab45.js"
+    "static/css/main.c6a4661f.css",
+    "static/js/main.e070d5d0.js"
   ]
 }
