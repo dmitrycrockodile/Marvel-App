@@ -9,7 +9,6 @@ import Spinner from '../spinner/Spinner';
 import './charList.scss';
 
 const CharList = (props) => {
-
    const [charList, setCharList] = useState([]);
    const [offset, setOffset] = useState(210);
    const [newItemLoading, setNewItemLoading] = useState(false);
@@ -19,6 +18,7 @@ const CharList = (props) => {
 
    useEffect(() => {
       onRequest(offset, true);
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
    const onRequest = (offset, initial) => {
@@ -59,19 +59,19 @@ const CharList = (props) => {
 
          return (
             <li className="char__item" 
-                tabIndex={0}
-                ref={el => itemRefs.current[i] = el}
-                key={id}
-                onClick={() => {
-                   props.onCharSelected(id);
-                   onFoucsItem(i);
-                }}
-                onKeyPress={(e) => {
-                   if (e.key === ' ' || e.key === 'Enter') {
+               tabIndex={0}
+               ref={el => itemRefs.current[i] = el}
+               key={id}
+               onClick={() => {
+                  props.onCharSelected(id);
+                  onFoucsItem(i);
+               }}
+               onKeyPress={(e) => {
+                  if (e.key === ' ' || e.key === 'Enter') {
                      props.onCharSelected(id);
                      onFoucsItem(i);
-                   }
-                }
+                  }
+               }
             }>
                <img src={thumbnail} style={imgStyle} alt={name}/>
                <div className="char__name">{name}</div>
