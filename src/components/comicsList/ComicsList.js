@@ -1,11 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import useMarvelService from '../../services/MarvelService';
-import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import useMarvelService from '../../services/MarvelService';
 
 import './comicsList.scss';
+
+const setContent = (processName, Component, newItemLoading) => {
+   switch (processName) {
+      case 'waiting':
+         return <Spinner />;
+      case 'loading':
+         return newItemLoading ? <Component /> : <Spinner />;
+      case 'performed':
+         return <Component />
+      case 'error':
+         return <ErrorMessage />
+      default:
+         throw new Error('Unexpected process name');
+   }
+}
 
 const ComicsList = () => {
 
@@ -14,7 +29,7 @@ const ComicsList = () => {
    const [comicsEnded, setComicsEnded] = useState(false);
    const [newComicsLoading, setNewComicsLoading] = useState(false);
 
-   const {loading, error, getAllComics} = useMarvelService();
+   const {process, setProcess, getAllComics} = useMarvelService();
 
    useEffect(() => {
       onRequest(offset, true);
@@ -23,7 +38,8 @@ const ComicsList = () => {
    const onRequest = (offset, initial) => {
       initial ? setNewComicsLoading(false) : setNewComicsLoading(true);
       getAllComics(offset)
-         .then(onComicsListLoaded);
+         .then(onComicsListLoaded)
+         .then(() => setProcess('performed'));
    }
 
    const onComicsListLoaded = (newComicsList) => {
@@ -58,15 +74,9 @@ const ComicsList = () => {
       )
    }
 
-   const items = renderItems(comicsList);
-   const spinner = loading && !newComicsLoading ? <Spinner /> : null;
-   const errorMessage = error ? <ErrorMessage /> : null;
-
    return (
       <div className="comics__list">
-         {spinner}
-         {errorMessage}
-         {items}
+         {setContent(process, () => renderItems(comicsList), newComicsLoading)}
          <button className="button button__main button__long" 
                  onClick={() => onRequest(offset)}
                  style={comicsEnded ? {'display': 'none'} : {'display': 'block'}}

@@ -1,12 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
-
 import PropTypes from 'prop-types';
 
-import useMarvelService from '../../services/MarvelService';
-import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import useMarvelService from '../../services/MarvelService';
 
 import './charList.scss';
+
+const setContent = (processName, Component, newItemLoading) => {
+   switch (processName) {
+      case 'waiting':
+         return <Spinner />;
+      case 'loading':
+         return newItemLoading ? <Component /> : <Spinner />;
+      case 'performed':
+         return <Component />
+      case 'error':
+         return <ErrorMessage />
+      default:
+         throw new Error('Unexpected process name');
+   }
+}
 
 const CharList = (props) => {
    const [charList, setCharList] = useState([]);
@@ -14,18 +28,18 @@ const CharList = (props) => {
    const [newItemLoading, setNewItemLoading] = useState(false);
    const [charEnded, setCharEnded] = useState(false);
 
-   const {loading, error, getAllCharacters} = useMarvelService();
+   const {getAllCharacters, process, setProcess} = useMarvelService();
 
    useEffect(() => {
       onRequest(offset, true);
-   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
    const onRequest = (offset, initial) => {
       initial ? setNewItemLoading(false) : setNewItemLoading(true);
 
       getAllCharacters(offset)
-         .then(onCharListLoaded);
+         .then(onCharListLoaded)
+         .then(() => setProcess('performed'));
    }
 
    const onCharListLoaded = (newCharList) => {
@@ -85,17 +99,10 @@ const CharList = (props) => {
          </ul>
       )
    };
-   
-   const items = renderItems(charList);
-
-   const errorMessage = error ? <ErrorMessage /> : null;
-   const spinner = loading && !newItemLoading ? <Spinner /> : null;
 
    return (
       <div className="char__list">
-            {spinner}
-            {errorMessage}
-            {items}
+            {setContent(process, () => renderItems(charList), newItemLoading)}
          <button className="button button__main button__long"
                   style={charEnded ? {'display': 'none'} : {'display': 'block'}}
                   onClick={() => onRequest(offset)}
