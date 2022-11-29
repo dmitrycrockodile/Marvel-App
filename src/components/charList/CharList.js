@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Spinner from '../spinner/Spinner';
@@ -100,9 +100,13 @@ const CharList = (props) => {
       )
    };
 
+   const elements = useMemo(() => {
+      return setContent(process, () => renderItems(charList), newItemLoading);
+   }, [process]);
+
    return (
       <div className="char__list">
-            {setContent(process, () => renderItems(charList), newItemLoading)}
+            {elements}
          <button className="button button__main button__long"
                   style={charEnded ? {'display': 'none'} : {'display': 'block'}}
                   onClick={() => onRequest(offset)}
